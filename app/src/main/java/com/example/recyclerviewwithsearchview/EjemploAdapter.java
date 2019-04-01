@@ -100,4 +100,43 @@ public class EjemploAdapter extends RecyclerView.Adapter<EjemploViewHolder>
     {
         return mSortedList.size();
     }
+
+    public void add(EjemploModel model) {
+        mSortedList.add(model);
+    }
+
+    public void remove(EjemploModel model) {
+        mSortedList.remove(model);
+    }
+
+    public void add(List<EjemploModel> models) {
+        mSortedList.addAll(models);
+    }
+
+    public void remove(List<EjemploModel> models) {
+
+        // Quita los elementos uno por uno
+
+        // Utilizando este método, el performance mejora
+        mSortedList.beginBatchedUpdates();
+        for (EjemploModel model : models) {
+            mSortedList.remove(model);
+        }
+
+        // Al utilizar este método, RecyclerView es notificado de los cambios y se actualizará
+        mSortedList.endBatchedUpdates();
+    }
+
+    public void replaceAll(List<EjemploModel> models) {
+
+        mSortedList.beginBatchedUpdates();
+        for (int i = mSortedList.size() - 1; i >= 0; i--) {
+            final EjemploModel model = mSortedList.get(i);
+            if (!models.contains(model)) {
+                mSortedList.remove(model);
+            }
+        }
+        mSortedList.addAll(models);
+        mSortedList.endBatchedUpdates();
+    }
 }

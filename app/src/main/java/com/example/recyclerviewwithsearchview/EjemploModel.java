@@ -11,6 +11,7 @@ public class EjemploModel
         mText = text;
     }
 
+
     public long getId() {
         return mId;
     }
